@@ -2,7 +2,7 @@
 
 Fazer Clone do projeto para a maquina.
 
-Entrar na pasta via cmd e executar o docker-compose
+Entrar na pasta que foi feito o clone via cmd e executar o docker-compose
 
 Depois que subir os containers, acessar a URL: "http://localhost:8043" para acompanhar as mensagens que estão sendo recebidas.
 
