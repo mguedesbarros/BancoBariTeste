@@ -1,0 +1,54 @@
+version: '3.5'
+
+services:
+    bari-rabbitmq:
+        image: rabbitmq:3-management
+        container_name: bari-rabbitmq
+        hostname: bari-rabbitmq
+        ports:
+            - 9044:15672
+            - 5675:5672
+            - 25677:25676
+        restart: always
+        networks: 
+            - bari_networks
+        volumes:
+            - /docker/volumes/bari-rabbitmq:/var/lib/rabbitmq
+        environment:
+            - RABBITMQ_ERLANG_COOKIE=bari
+            - RABBITMQ_DEFAULT_USER=mqbari
+            - RABBITMQ_DEFAULT_PASS=bari123
+    bari-producer-worker:
+        build: 
+            context: .
+            dockerfile: "src/ProducerWorkerService/Dockerfile"
+        container_name: bari-producer-worker
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Production 
+        restart: always
+        ports:
+            - "8042:80"
+            - "9042:443"
+        depends_on:
+            - bari-rabbitmq
+        networks: 
+            - bari_networks
+    bari-web-consumer:
+        build: 
+            context: .
+            dockerfile: "src/WebConsumer/Dockerfile"
+        container_name: bari-web-consumer
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Production 
+        restart: always
+        ports:
+            - "8043:80"
+            - "9043:443"
+        depends_on:
+            - bari-rabbitmq
+            - bari-producer-worker
+        networks: 
+            - bari_networks        
+networks: 
+    bari_networks:
+        driver: bridge            

@@ -1,0 +1,40 @@
+﻿@model List<Message>
+@{
+    ViewBag.Title = "Mensagens recebidas";
+
+}
+<br />
+
+<div class="table-responsive">
+    <table class="table table-bordered table-condensed table-striped table-hover sortable">
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td colspan="10">Nenhuma mensagem no momento.</td>
+            </tr>
+
+        }
+        else
+        {
+            <thead>
+                <tr class="danger">
+                    <th>Id</th>
+                    <th>Host</th>
+                    <th>Descrição</th>
+                    <th>Data Envio</th>
+                </tr>
+            </thead>
+
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Host</td>
+                    <td>@item.Descricao</td>
+                    <td>@item.DataEnvio</td>
+                </tr>
+
+            }
+        }
+    </table>
+</div>  
