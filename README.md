@@ -1,6 +1,6 @@
 # BancoBariTeste
 
-Fazer Clone do projeto para a maquina.
+Fazer o clone do projeto para a maquina local.
 
 Entrar na pasta que foi feito o clone via cmd e executar o docker-compose
 
